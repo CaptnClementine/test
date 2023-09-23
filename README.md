@@ -9,7 +9,7 @@
   
 **Процедуры, работающие только с РНК**
 - `reverse_transcription` — напечатать комплиментарную ДНК
- 
+
 - `has_start_codon` — проверить на наличие стартового кодона (*AUG*).  В ответе будет список из *YES* (если есть) и *NO* (если нет)  в соответствующем вашей подаче порядке.
 
   
@@ -25,8 +25,8 @@
 ## Пример использования
 ```python
 
-run_dna_rna_tools('ATG', 'transcribe') # 'AUG
-'
+run_dna_rna_tools('ATG', 'transcribe') # 'AUG'
+
 run_dna_rna_tools('AUG', 'reverse_transcription') # 'ATG'
 
 run_dna_rna_tools('ttGAuG', 'has_start_codon') # 'YES'
