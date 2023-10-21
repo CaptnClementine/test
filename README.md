@@ -1,48 +1,121 @@
-# Описание программы dna_rna_tools.py
-Основная функция `run_dna_rna_tools` принимает на вход произвольное количество аргументов с последовательностями ДНК или РНК (str), а также название процедуры которую нужно выполнить (это всегда последний аргумент, str, см. пример использования). После этого команда делает заданное действие над всеми переданными последовательностями. Если подана одна последовательность - возвращается строка с результатом. Если подано несколько - возвращается список из строк.
-## Описание основных функций
+# How to make pain.py work?
+![image](https://github.com/CaptnClementine/test/assets/131146976/9be07b5d-485f-464e-9ef7-d58dfb02aa3b)
 
 
-**Процедуры, работающие только с ДНК**
-- `transcribe` — напечатать транскрибированную последовательность
+This README.md will be very useful to answer this question! If you prefer to use environment.yml, do not forget to make sure to follow additional steps carefully.
 
-  
-**Процедуры, работающие только с РНК**
-- `reverse_transcription` — напечатать комплиментарную ДНК
+Don't forget to install mamba if you don't have it! The solution could be sensitive to the operating system type. This project was developed using a virtual machine with Ubuntu (64-bit) on Windows.
 
-- `has_start_codon` — проверить на наличие стартового кодона (*AUG*).  В ответе будет список из *YES* (если есть) и *NO* (если нет)  в соответствующем вашей подаче порядке.
+## Environment Setup Instructions
 
-  
-**Процедуры, работающие и с ДНК, и с РНК**
-- `reverse` — напечатать перевёрнутую последовательность
+1. **Create Mamba Environment:**
 
-- `complement` — напечатать комплементарную последовательность
+   - Create a Conda environment named 'hw_7_env' with Python 3.12:
+     ```
+     mamba create -n hw7_mamb
+     ```
 
-- `reverse_complement` — напечатать обратную комплементарную последовательность
-  
-- `is_palindrom` — проверить является ли данная последовательность палиндромом. В ответе будет список из *YES* (если является) и *NO* (если не явлется)  в соответствующем вашей подаче порядке.
+3. **Activate Mamba Environment:**
 
-## Пример использования
-```python
+   - Activate the 'hw7_mamb' environment:
+     ```
+     mamba activate hw7_mamb
+     ```
 
-run_dna_rna_tools('ATG', 'transcribe') # 'AUG'
+4. **Install Python:**
 
-run_dna_rna_tools('AUG', 'reverse_transcription') # 'ATG'
+   - Install Python 3.12 within the 'hw7_mamb' environment:
+     ```
+     mamba install python=3.12
+     ```
 
-run_dna_rna_tools('ttGAuG', 'has_start_codon') # 'YES'
+5. **Install Python Packages:**
 
-run_dna_rna_tools('ATG', 'reverse') # 'GTA'
+   - Install required Python packages:
+     ```
+     pip install google
+     pip install --upgrade google-api-python-client
+     pip install biopython==1.78
+     pip install pandas
+     ```
 
-run_dna_rna_tools('AtG', 'complement') # 'TaC'
+6. **Install OpenCV:**
 
-run_dna_rna_tools('ATg', 'reverse_complement') # 'cAT'
+   - Install OpenCV from the conda-forge channel and required Python package:
+     ```
+     mamba install -c conda-forge opencv
+     pip install opencv-python
+     
+     ```
 
-run_dna_rna_tools('ATg', 'aaaatttt', 'is_palindrom') # ['NO', 'YES']
+7. **Install PyArrow:** 
 
-run_dna_rna_tools('ATG', 'aT', 'reverse') # ['GTA', 'Ta']
+   - Please use mamba to install PyArrow since it may not work with conda. 😥
+   - Install PyArrow:
+     ```
+     mamba install pyarrow
+     ```
 
+8. **Edit 'dtypes.py' File:** ❗ ❗ ❗ 
+
+   - Open the 'dtypes.py' file and import 'pyarrow' as 'pa':
+     ```
+     nano /home/anastasia/miniforge3/envs/hw7_mamba/lib/python3.12/site-packages/pandas/core/dtypes/dtypes.py
+     ```
+     Check your path! It might be different from this one
+
+   - Insert the following line as the second line in the file, right after the first 'from' statement:
+     ```python
+     import pyarrow as pa
+     ```
+
+   - Save and close the file.
+
+9. **Install 'libutf8proc':**
+
+   - Install 'libutf8proc':
+     ```
+     mamba install libutf8proc
+     ```
+
+10. **Install 'libutf8proc2' Using apt-get:**
+
+    - Install 'libutf8proc2' using apt-get:
+      ```
+      sudo apt-get install libutf8proc2
+      ```
+ 
+11. **Edit 'frame.py' File:** ❗ ❗ ❗ 
+
+    - Open the 'frame.py' file and comment out the problematic lines (line 700):
+      ```
+      nano +700 /home/anastasia/miniforge3/envs/hw7_mamba/lib/python3.12/site-packages/pandas/core/frame.py
+      ```
+      Check your path! It might be different from this one
+    - Comment out the lines as follows:
+![image](https://github.com/CaptnClementine/test/assets/131146976/40d30123-065b-4cc7-9874-58aba8c899b7)
+
+
+    - Save and close the file.
+
+
+## How to use environment.yml
+To create a conda environment using an environment.yml file, use the following command:
 ```
+mamba env create -f environment.yml
+```
+Afterward, make sure to follow these additional steps carefully. They are marked with ❗ ❗ ❗ for your convenience
 
-## Возможные ошибки и их обработка
-Если у вас выходит ошибка в программе, то чаще всего нужно прверить работает ли запрашиваемая вами процедура с этим типом нуклеиновох кислот и нет ли опечаток в последовательности. Также стоит учитывать, что при вводе одной или нескольких последовательностей без *U* или *Т* они будут восприниматься как ДНК. Если вам необходимо обработать эти последователности как РНК, то можно добавить ещё одну последовательность с *U*. 
+That's all! I hope you were able to complete it quickly, and that working with 'pain.py' wasn't too painful for you at all!
 
+## By the way
+Good luck!
+
+And don't forget to take some time to rest, as I did this week! 
+The best rest is a quality sleep (just like me and python on the picture)
+![image](https://github.com/CaptnClementine/test/assets/131146976/ce5e52e6-aeff-426b-a76d-850cc4f08253)
+
+And chill with chinchilla
+![image](https://github.com/CaptnClementine/test/assets/131146976/54c96382-0cc8-4b58-859d-ff3f04e74c10)
+
+If you have any questions, suggestions, or encounter any issues while using the amino-analyzer tool, feel free to reach out [CaptnClementine](https://github.com/YourGitHubUsername) 💛
